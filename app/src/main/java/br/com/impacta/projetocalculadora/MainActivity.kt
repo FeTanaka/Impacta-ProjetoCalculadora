@@ -35,17 +35,27 @@ class MainActivity : AppCompatActivity() {
 
     fun digitaNumero(opcao: String) {
         var textoLinha = binding.textLinhaInferior.text
+        // Usuário clicou em apagar
         if (opcao == "-1") {
+            // Verificamos se existe algum caracter na string
             if (textoLinha.length > 0) {
                 textoLinha = textoLinha.dropLast(1)
             }
+            // Verificamos se após a exclusão a string ficou vazia
+            // Caso tenha ficado, adicionamos o número 0
             if (textoLinha == "") {
                 textoLinha = "0"
             }
-        } else {
+        } else { // Usuário clicou em um número ou ponto
+            // Aqui verificamos se o usuário apertou algo diferente de .(ponto)
+            // e caso o valor na linha ainda seja 0, retiramos o zero.
             if (textoLinha == "0" && opcao != ".") {
                 textoLinha = textoLinha.drop(1)
             }
+            // Aqui verificamos se o usuário apertou algo diferente de .(ponto)
+            // ou o valor na linha ainda não contenha nenhum .(ponto).
+            // Caso alguma das condições sejam válidas adicionamos o conteúdo da opção
+            // ao final da linha
             if (opcao != "." || !textoLinha.contains(".")) {
                 textoLinha  = textoLinha.toString() + opcao
             }
