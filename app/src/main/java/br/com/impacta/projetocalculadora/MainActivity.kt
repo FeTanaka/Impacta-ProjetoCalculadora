@@ -8,7 +8,20 @@ class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-    private var addDecimal = false
+
+    // Declaração das funções Lambdas
+    // Funções Lambda: funções anônimas que guardamos a referência através de variavéis
+    private val adicao: (Double, Double) -> Double = {a, b -> a + b} // Forma "longa" de declarar uma função lamba
+    private val subtracao = {a: Double, b: Double -> a - b} // Forma "reduzida" de declarar uma função lamba
+    private val multiplicacao = {a: Double, b: Double -> a * b}
+    private val divisao : (Double, Double) -> Double = {a, b -> a / b}
+    private val porcentagem = {a: Double, b: Double -> a * (divisao(b, 100.0))}
+
+    // Declaração da nossa função de ordem superior
+    // Função de ordem superior: é uma função que recebe outra função como parametro
+    fun calculaValorFinal(numero1: Double, numero2: Double, operacao: (Double, Double) -> Double): Double {
+        return operacao(numero1, numero2)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             // ao final da linha
             if (opcao != "." || !textoLinha.contains(".")) {
                 textoLinha  = textoLinha.toString() + opcao
+
             }
         }
         binding.textLinhaInferior.text = textoLinha
