@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity() {
         binding.btnNum9.setOnClickListener { digitaNumero("9") }
         binding.btnNumPonto.setOnClickListener { digitaNumero(".") }
         binding.btnNumApagar.setOnClickListener { digitaNumero("-1") }
+
+        binding.btnOprAdicao.setOnClickListener { digitaOperacao("+") }
+        binding.btnOprSubtracao.setOnClickListener { digitaOperacao("-") }
+        binding.btnOprMultiplicacao.setOnClickListener { digitaOperacao("*") }
+        binding.btnOprDivisao.setOnClickListener { digitaOperacao("/") }
+        binding.btnOprPorcetagem.setOnClickListener { digitaOperacao("%") }
     }
 
     fun digitaNumero(opcao: String) {
@@ -76,4 +82,12 @@ class MainActivity : AppCompatActivity() {
         }
         binding.textLinhaInferior.text = textoLinha
     }
+
+    fun digitaOperacao(opcao: String) {
+        var linhaInferior = binding.textLinhaInferior.text.toString()
+        var linhaSuperior = "$linhaInferior $opcao"
+        binding.textLinhaSuperior.text = linhaSuperior
+        binding.textLinhaInferior.text = "0"
+    }
+
 }
