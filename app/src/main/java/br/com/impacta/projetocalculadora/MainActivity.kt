@@ -2,6 +2,7 @@ package br.com.impacta.projetocalculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import br.com.impacta.projetocalculadora.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     fun calculaValorFinal(numero1: Double, numero2: Double, operacao: (Double, Double) -> Double): Double {
         return operacao(numero1, numero2)
     }
+
+    private var operacaoSelecionada:String? = null
+    private var ultimoValor:Double? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +49,21 @@ class MainActivity : AppCompatActivity() {
         binding.btnNumPonto.setOnClickListener { digitaNumero(".") }
         binding.btnNumApagar.setOnClickListener { digitaNumero("-1") }
 
-        binding.btnOprAdicao.setOnClickListener { digitaOperacao("+") }
-        binding.btnOprSubtracao.setOnClickListener { digitaOperacao("-") }
-        binding.btnOprMultiplicacao.setOnClickListener { digitaOperacao("*") }
-        binding.btnOprDivisao.setOnClickListener { digitaOperacao("/") }
-        binding.btnOprPorcetagem.setOnClickListener { digitaOperacao("%") }
+        binding.btnOprAdicao.setOnClickListener {
+            digitaOperacao("+")
+        }
+        binding.btnOprSubtracao.setOnClickListener {
+            digitaOperacao("-")
+        }
+        binding.btnOprMultiplicacao.setOnClickListener {
+            digitaOperacao("*")
+        }
+        binding.btnOprDivisao.setOnClickListener {
+            digitaOperacao("/")
+        }
+        binding.btnOprPorcetagem.setOnClickListener {
+            digitaOperacao("%")
+        }
     }
 
     fun digitaNumero(opcao: String) {
@@ -84,10 +98,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun digitaOperacao(opcao: String) {
+        operacaoSelecionada = opcao
+
         var linhaInferior = binding.textLinhaInferior.text.toString()
-        var linhaSuperior = "$linhaInferior $opcao"
+        var linhaSuperior = if (linhaInferior != "0") {
+            ultimoValor = linhaInferior.toDouble()
+            "$linhaInferior $opcao"
+        } else {
+            "$ultimoValor $opcao"
+        }
+
         binding.textLinhaSuperior.text = linhaSuperior
         binding.textLinhaInferior.text = "0"
+    }
+
+    fun mostraResultado() {
+//        when (opcao)
     }
 
 }
